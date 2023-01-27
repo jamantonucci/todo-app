@@ -7,17 +7,17 @@ export default function Tasks() {
     {
       title: "Finish JavaScript lab",
       id: uuid(),
-      status: "To Do",
+      complete: false,
     },
     {
       title: "Create Loom video",
       id: uuid(),
-      status: "To Do",
+      complete: false,
     },
     {
       title: "Submit to FOL Dropbox",
       id: uuid(),
-      status: "To Do",
+      complete: false,
     },
   ]);
 
@@ -25,11 +25,7 @@ export default function Tasks() {
     const updatedTasks = [...tasks];
     updatedTasks.forEach((task) => {
       if (task.id === id) {
-        if (task.status === "Complete") {
-          task.status = "To Do";
-        } else {
-          task.status = "Complete";
-        }
+        task.completed = task.completed ? false : true;
       }
     });
     setTasks(updatedTasks);
@@ -38,7 +34,7 @@ export default function Tasks() {
   const handleRemoveTask = (id) => {
     let updatedTasks = [...tasks];
     updatedTasks = updatedTasks.filter(function (task) {
-      return task.id != id;
+      return task.id !== id;
     });
     setTasks(updatedTasks);
   };
@@ -49,7 +45,7 @@ export default function Tasks() {
 
   let tasksCompleted = 0;
   tasks.forEach((task) => {
-    if (task.status === "Complete") {
+    if (task.completed) {
       tasksCompleted++;
     }
   });
@@ -70,7 +66,7 @@ export default function Tasks() {
           key={item.id}
           id={item.id}
           title={item.title}
-          status={item.status}
+          completed={item.completed}
           onChangeStatus={handleChangeStatus}
           onRemoveTask={handleRemoveTask}
         />
