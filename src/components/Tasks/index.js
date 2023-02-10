@@ -1,48 +1,11 @@
 import Task from "./Task";
-import uuid from "react-uuid";
-import { useState } from "react";
 
-export default function Tasks() {
-  const [tasks, setTasks] = useState([
-    {
-      title: "Finish JavaScript lab",
-      id: uuid(),
-      complete: false,
-    },
-    {
-      title: "Create Loom video",
-      id: uuid(),
-      complete: false,
-    },
-    {
-      title: "Submit to FOL Dropbox",
-      id: uuid(),
-      complete: false,
-    },
-  ]);
-
-  const handleChangeStatus = (id) => {
-    const updatedTasks = [...tasks];
-    updatedTasks.forEach((task) => {
-      if (task.id === id) {
-        task.completed = task.completed ? false : true;
-      }
-    });
-    setTasks(updatedTasks);
-  };
-
-  const handleRemoveTask = (id) => {
-    let updatedTasks = [...tasks];
-    updatedTasks = updatedTasks.filter(function (task) {
-      return task.id !== id;
-    });
-    setTasks(updatedTasks);
-  };
-
-  const deleteAll = () => {
-    setTasks([]);
-  };
-
+export default function Tasks({
+  tasks,
+  handleChangeStatus,
+  handleRemoveTask,
+  deleteAll,
+}) {
   let tasksCompleted = 0;
   tasks.forEach((task) => {
     if (task.completed) {
