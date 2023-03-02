@@ -1,0 +1,77 @@
+$title-font: "Gloria Hallelujah", cursive;
+$body-font: "Nunito", sans-serif;
+
+$primary-color: #2a9d8f; // Persian green
+$secondary-color: #265653; // charcoal
+$text-color: #34343a;
+$text-color-light: #d8dbe2; // platinum
+$background-color: #d8dbe2; // platinum
+$background-color-light: #f3f4f6; // anti-flash white
+$success-color: #00b822; // dark pastel green
+$danger-color: #ef476f; // bright pink
+
+@mixin breakpoint($min-width) {
+  @media only screen and (min-width: $min-width) {
+    @content;
+  }
+}
+
+@mixin breakpoint-small {
+  @include breakpoint(768px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-large {
+  @include breakpoint(1280px) {
+    @content;
+  }
+}
+
+@mixin status-button {
+  .complete-button {
+    border: none;
+    background-color: $background-color-light;
+    font-size: 2rem;
+    margin-right: 1rem;
+
+    svg {
+      &.completed-yes {
+        color: $success-color;
+      }
+
+      &.completed-no {
+        color: $danger-color;
+      }
+    }
+  }
+}
+
+@mixin task-info {
+  .task-info {
+    margin: 0.5rem;
+    flex-grow: 1;
+
+    h3,
+    input {
+      font-family: $title-font;
+      color: $secondary-color;
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .id-field,
+    .task-status {
+      opacity: 0.5;
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+}
+
+@mixin status-border($color) {
+  padding: 0.5rem;
+  border: 1px solid $color;
+  border-left: 7px solid $color;
+}

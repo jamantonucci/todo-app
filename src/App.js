@@ -3,6 +3,7 @@ import uuid from "react-uuid";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import Form from "./components/Form";
+import "./styles/index.scss";
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -57,14 +58,16 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Tasks
-        tasks={tasks}
-        deleteAll={deleteAll}
-        handleNewTask={handleNewTask}
-        handleRemoveTask={handleRemoveTask}
-        handleChangeStatus={handleChangeStatus}
-      />
-      <Form onNewTask={handleNewTask} />
+      <main className="app-main">
+        <Tasks
+          tasks={tasks}
+          deleteAll={deleteAll}
+          handleNewTask={handleNewTask}
+          handleRemoveTask={handleRemoveTask}
+          handleChangeStatus={handleChangeStatus}
+        />
+        <Form onNewTask={handleNewTask} />
+      </main>
     </div>
   );
 }

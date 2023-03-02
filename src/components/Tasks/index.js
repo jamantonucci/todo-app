@@ -1,4 +1,6 @@
 import Task from "./Task";
+import "./styles.scss";
+import { HiOutlineTrash } from "react-icons/hi";
 
 export default function Tasks({
   tasks,
@@ -13,28 +15,46 @@ export default function Tasks({
     }
   });
 
+  const getPercentComplete = (tasksCompleted, tasksTotal) => {
+    var percent = ((tasksCompleted / tasksTotal) * 100).toFixed(0) + "%";
+    return percent;
+  };
+
   return (
-    <main>
+    <main className="task-list-component">
       <h2>Task List:</h2>
-      <hr />
       {tasks.length > 0 && (
-        <div>
+        <div className="progress">
           Tasks Completed: {tasksCompleted}/{tasks.length} (
-          {((tasksCompleted / tasks.length) * 100).toFixed(0)}%)
+          {getPercentComplete(tasksCompleted, tasks.length)})
+          <div className="progress-bar">
+            <div
+              className="progress-bar-progress"
+              style={{
+                width: getPercentComplete(tasksCompleted, tasks.length),
+              }}
+            ></div>
+          </div>
         </div>
       )}
 
-      {tasks.map((item) => (
-        <Task
-          key={item.id}
-          id={item.id}
-          title={item.title}
-          completed={item.completed}
-          onChangeStatus={handleChangeStatus}
-          onRemoveTask={handleRemoveTask}
-        />
-      ))}
-      <button onClick={deleteAll}>Delete All Tasks</button>
+      <div className="task-list">
+        {tasks.map((item) => (
+          <Task
+            key={item.id}
+            id={item.id}
+            title={item.title}
+            completed={item.completed}
+            onChangeStatus={handleChangeStatus}
+            onRemoveTask={handleRemoveTask}
+          />
+        ))}
+      </div>
+
+      <button onClick={deleteAll} className="delete-all-button">
+        <HiOutlineTrash />
+        Delete All
+      </button>
     </main>
   );
 }

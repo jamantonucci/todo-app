@@ -1,0 +1,87 @@
+@import "../../styles/variables.scss";
+
+.form-component {
+  text-align: center;
+  flex-grow: 1;
+  margin: 0px;
+
+  @include breakpoint-small {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  form {
+    background-color: $background-color-light;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
+    border: 1px solid $secondary-color;
+    padding: 0.1rem 0.5rem;
+    border-radius: 15px;
+    text-align: left;
+
+    .form-status {
+      width: 50%;
+      margin-top: 1rem;
+      margin-left: auto;
+      margin-right: auto;
+
+      .success {
+        @include status-border($success-color);
+      }
+
+      .error {
+        @include status-border($danger-color);
+
+        ul {
+          padding: 0;
+          margin: 0;
+          font-size: 1rem;
+          font-weight: normal;
+
+          li {
+            list-style: circle;
+            list-style-position: inside;
+            padding: 0 0 0 10px;
+            margin: 5px 0 0;
+          }
+        }
+      }
+    }
+
+    input {
+      border: none;
+      background-color: $background-color-light;
+      width: 100%;
+    }
+
+    @include status-button;
+
+    @include task-info;
+
+    main {
+      display: flex;
+    }
+
+    select {
+      background-color: $background-color-light;
+      border: none;
+      opacity: 0.8;
+      display: inline;
+    }
+
+    .add-task-button {
+      font-size: 2rem;
+      color: $success-color;
+      justify-self: flex-end;
+      border: none;
+      background-color: $background-color-light;
+    }
+  }
+
+  h2 {
+    font-family: $title-font;
+  }
+}

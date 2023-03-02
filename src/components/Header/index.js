@@ -1,9 +1,12 @@
+import "./styles.scss";
+import { IoLogoOctocat } from "react-icons/io";
+
 export default function Header() {
   return (
-    <div>
-      To Do App
-      <br />
-      Jamie Antonucci
-    </div>
+    <header className="header">
+      <IoLogoOctocat />
+      <h1>TaskJam</h1>
+      <div className="author">By Jamie Antonucci</div>
+    </header>
   );
 }

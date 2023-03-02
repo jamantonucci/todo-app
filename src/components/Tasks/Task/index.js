@@ -1,4 +1,10 @@
 import { useState, useEffect } from "react";
+import "./styles.scss";
+import {
+  MdOutlineCheckBoxOutlineBlank,
+  MdOutlineCheckBox,
+  MdOutlineHighlightOff,
+} from "react-icons/md";
 
 export default function Task({
   id,
@@ -30,18 +36,20 @@ export default function Task({
   }
 
   return (
-    <div>
-      <h3>{title}</h3>
-      <p>
-        ID: {id}
-        <br />
-        Status: {completed ? "Completed" : "To Do"}
-      </p>
-      <div>
-        <button onClick={handleChangeStatus}>{buttonText}</button>
-        <button onClick={handleRemoveTask}>Remove Task</button>
+    <div className="task">
+      <button onClick={handleChangeStatus} className="complete-button">
+        {completed && <MdOutlineCheckBox className="completed-yes" />}
+        {!completed && (
+          <MdOutlineCheckBoxOutlineBlank className="completed-no" />
+        )}
+      </button>
+      <div className="task-info">
+        <h3>{title}</h3>
+        <p className="id-field">ID: {id}</p>
       </div>
-      <hr />
+      <button onClick={handleRemoveTask} className="remove-task-button">
+        <MdOutlineHighlightOff />
+      </button>
     </div>
   );
 }

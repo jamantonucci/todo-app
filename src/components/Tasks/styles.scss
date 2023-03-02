@@ -1,0 +1,60 @@
+@import "../../styles/variables.scss";
+
+.task-list-component {
+  margin: 0px;
+  text-align: center;
+  flex-grow: 1;
+
+  @include breakpoint-small {
+    max-width: 800px;
+    margin: auto;
+  }
+
+  .task-list {
+    display: flex;
+    padding-top: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+
+  h2 {
+    font-family: $title-font;
+  }
+
+  .progress {
+    font-weight: bold;
+  }
+
+  .progress-bar {
+    width: 50%;
+    background-color: white;
+    margin: auto;
+    height: 1rem;
+    border-radius: 10px;
+    border: 1px solid $secondary-color;
+
+    .progress-bar-progress {
+      background-color: $success-color;
+      height: 1rem;
+      border-radius: 10px;
+    }
+  }
+
+  .delete-all-button {
+    border: none;
+    border-radius: 10px;
+    background-color: $danger-color;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 1rem;
+
+    svg {
+      font-size: 1.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+}
