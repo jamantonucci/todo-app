@@ -1,38 +1,27 @@
-import { useState, useEffect } from "react";
 import "./styles.scss";
 import {
   MdOutlineCheckBoxOutlineBlank,
   MdOutlineCheckBox,
   MdOutlineHighlightOff,
 } from "react-icons/md";
+import { useDispatch } from 'react-redux';
+import { changeStatus, removeTask } from "../../../redux/taskSlice";
 
 export default function Task({
   id,
   title,
   completed,
-  onChangeStatus,
-  onRemoveTask,
 }) {
-  const [buttonText, setButtonText] = useState(() => {
-    return completed ? "Mark as To Do" : "Mark as Complete";
-  });
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    let newButtonText = "";
-    if (completed) {
-      newButtonText = "Mark as To Do";
-    } else {
-      newButtonText = "Mark as Complete";
-    }
-    setButtonText(newButtonText);
-  }, [completed]);
-
-  function handleChangeStatus() {
-    onChangeStatus(id);
+  function handleRemoveTask(event) {
+    event.preventDefault();
+    dispatch(removeTask(id));
   }
 
-  function handleRemoveTask() {
-    onRemoveTask(id);
+  function handleChangeStatus(event) {
+    event.preventDefault();
+    dispatch(changeStatus(id));
   }
 
   return (

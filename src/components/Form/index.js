@@ -5,12 +5,16 @@ import {
   MdOutlineCheckBox,
 } from "react-icons/md";
 import { BiPlusCircle } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { addTask } from "../../redux/taskSlice";
 
 export default function Form({ onNewTask }) {
   const [title, setTitle] = useState("");
   const [completed, setCompleted] = useState(false);
   const [errorMessages, setErrorMessages] = useState([]);
   const [showSuccess, setShowSuccess] = useState(false);
+
+  let dispatch = useDispatch();
 
   const handleForm = (e) => {
     e.preventDefault();
@@ -26,7 +30,8 @@ export default function Form({ onNewTask }) {
     setErrorMessages(validate);
 
     if (validate.length === 0) {
-      onNewTask(title, completed);
+      const data = { title, completed }
+      dispatch(addTask(data));
       setShowSuccess(true);
 
       // Clean form
