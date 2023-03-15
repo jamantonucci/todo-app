@@ -33,7 +33,7 @@ export default function Task({
         )}
       </button>
       <div className="task-info">
-        <h3>{title}</h3>
+        <h3 onClick={handleChangeStatus}>{title}</h3>
         <p className="id-field">ID: {id}</p>
       </div>
       <button onClick={handleRemoveTask} className="remove-task-button">

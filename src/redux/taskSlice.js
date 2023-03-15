@@ -47,6 +47,18 @@ export const taskSlice = createSlice({
 			state.tasks = [];
 		},
 
+		completeAllTasks: (state, action) => {
+			state.tasks.forEach((task) => {
+				task.completed = true;
+			})
+		},
+
+		incompleteAllTasks: (state, action) => {
+			state.tasks.forEach((task) => {
+				task.completed = false;
+			})
+		},
+
     addTask: (state, action) => {
       const newTask = {
         id: uuid(),
@@ -55,18 +67,8 @@ export const taskSlice = createSlice({
       }
       state.tasks.push(newTask);
     }
-
-      // const handleNewTask = (title, completed) => {
-  //   const updatedTasks = [...tasks];
-  //   updatedTasks.push({
-  //     id: uuid(),
-  //     title,
-  //     completed,
-  //   });
-  //   setTasks(updatedTasks);
-  // };
 	},
 });
 
-export const { changeStatus, removeTask, deleteAllTasks, addTask } = taskSlice.actions;
+export const { changeStatus, removeTask, deleteAllTasks, completeAllTasks, incompleteAllTasks, addTask } = taskSlice.actions;
 export default taskSlice.reducer;

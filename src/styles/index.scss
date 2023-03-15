@@ -1,21 +1,137 @@
-@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Nunito:wght@400;700&display=swap");
-@import "./variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Nunito:wght@400;700&display=swap');
+@import './variables.scss';
 
 body {
-  margin: 0;
-  background-color: $background-color;
-  font-family: $body-font;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	background-color: $background-color;
+	font-family: $body-font;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+strong {
+	color: $secondary-color;
+}
+
+nav {
+	display: flex;
+	justify-content: center;
+
+	&.main {
+		background-color: $secondary-color;
+
+		a {
+			color: $background-color-light;
+
+			&:hover {
+				background-color: rgba(255, 255, 255, 0.4);
+			}
+
+			&.active {
+				background-color: $background-color;
+				color: $secondary-color;
+			}
+		}
+	}
+
+	&.submenu {
+		background-color: $background-color;
+		border-bottom: 3px solid $secondary-color;
+
+		a {
+			color: $secondary-color;
+			padding: 0.5rem 0.75rem;
+
+			&:hover {
+				color: $primary-color;
+			}
+
+			&.active {
+				font-weight: bold;
+				font-size: 1.05rem;
+			}
+		}
+	}
+
+	a {
+		display: block;
+		padding: 0.5rem 0.75rem;
+		font-size: 0.9rem;
+		text-decoration: none;
+		font-size: 1.1rem;
+
+		@include breakpoint-small {
+			padding: 0.75rem 1.5rem;
+			font-size: 1rem;
+		}
+	}
+}
+
+h2 {
+	font-family: $title-font;
+	text-align: center;
+	margin-bottom: 0.5rem;
+}
+
+h3 {
+	font-family: $title-font;
+	text-align: center;
+}
+
+p {
+	width: 80%;
+	text-align: center;
+	margin: auto;
+	max-width: 500px;
+	padding-bottom: 0.5rem;
+	line-height: 1.4rem;
+
+	@include body-link;
+}
+
+.long-p {
+	text-align: left;
+	max-width: 700px;
+	line-height: 1.65rem;
 }
 
 button {
-  cursor: pointer;
+	cursor: pointer;
 }
 
-.app-main {
-  @include breakpoint-large {
-    display: flex;
-    align-items: flex-start;
-  }
+.complete-button {
+	button {
+		border: none;
+	}
+	
+}
+
+.NewTask-status {
+	width: 50%;
+	margin-top: 1rem;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: $background-color-light;
+
+	.success {
+		@include status-border($success-color);
+	}
+
+	.error {
+		@include status-border($danger-color);
+
+		ul {
+			padding: 0;
+			margin: 0;
+			font-size: 1rem;
+			font-weight: normal;
+
+			li {
+				list-style: circle;
+				list-style-position: inside;
+				padding: 0 0 0 10px;
+				margin: 5px 0 0;
+			}
+		}
+	}
 }

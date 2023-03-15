@@ -1,12 +1,20 @@
 import Task from './Task';
 import './styles.scss';
 import { HiOutlineTrash } from 'react-icons/hi';
+import {
+  MdOutlineCheckBoxOutlineBlank,
+  MdOutlineCheckBox,
+} from "react-icons/md";
 import { useSelector } from 'react-redux';
-import { deleteAllTasks } from '../../redux/taskSlice';
+import {
+	deleteAllTasks,
+	completeAllTasks,
+	incompleteAllTasks,
+} from '../../redux/taskSlice';
 import { useDispatch } from 'react-redux';
 
 export default function Tasks() {
-  let tasks = useSelector((state) => state.task.tasks);
+	let tasks = useSelector((state) => state.task.tasks);
 	let tasksCompleted = 0;
 	let dispatch = useDispatch();
 
@@ -21,10 +29,20 @@ export default function Tasks() {
 		return percent;
 	};
 
-  function deleteAll(event) {
+	function deleteAll(event) {
 		event.preventDefault();
-    dispatch(deleteAllTasks());
-  }
+		dispatch(deleteAllTasks());
+	}
+
+	function completeAll(event) {
+		event.preventDefault();
+		dispatch(completeAllTasks());
+	}
+
+	function incompleteAll(event) {
+		event.preventDefault();
+		dispatch(incompleteAllTasks());
+	}
 
 	return (
 		<main className='task-list-component'>
@@ -55,10 +73,20 @@ export default function Tasks() {
 				))}
 			</div>
 
-			<button onClick={deleteAll} className='delete-all-button'>
-				<HiOutlineTrash />
-				Delete All
-			</button>
+			<div className='change-all-buttons'>
+				<button onClick={completeAll} className='complete-all-button'>
+					<MdOutlineCheckBox />
+					Complete All
+				</button>
+				<button onClick={incompleteAll} className='incomplete-all-button'>
+					<MdOutlineCheckBoxOutlineBlank />
+					Complete None
+				</button>
+				<button onClick={deleteAll} className='delete-all-button'>
+					<HiOutlineTrash />
+					Delete All
+				</button>
+			</div>
 		</main>
 	);
 }

@@ -1,65 +1,77 @@
-@import "../../styles/variables.scss";
+@import '../../styles/variables.scss';
 
 .task-list-component {
-  margin: 0px;
-  text-align: center;
-  flex-grow: 1;
+	margin: 0px;
+	text-align: center;
+	flex-grow: 1;
 
-  @include breakpoint-small {
-    max-width: 800px;
-    margin: auto;
-  }
+	@include breakpoint-small {
+		max-width: 800px;
+		margin: auto;
+	}
 
-  .task-list {
+	.task-list {
+		display: flex;
+		padding-top: 1rem;
+		flex-wrap: wrap;
+		margin-bottom: 0;
+	}
+
+	.progress {
+		font-weight: bold;
+	}
+
+	.progress-bar {
+		width: 50%;
+		background-color: white;
+		margin: auto;
+		height: 1rem;
+		border-radius: 10px;
+		border: 1px solid $secondary-color;
+
+		.progress-bar-progress {
+			background-color: $success-color;
+			height: 1rem;
+			border-radius: 10px;
+			transition: width 1s;
+		}
+	}
+
+	.change-all-buttons {
     display: flex;
-    padding-top: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 0;
-  }
-
-  h2 {
-    font-family: $title-font;
-  }
-
-  .progress {
-    font-weight: bold;
-  }
-
-  .progress-bar {
-    width: 50%;
-    background-color: white;
+    max-width: 600px;
     margin: auto;
-    height: 1rem;
-    border-radius: 10px;
-    border: 1px solid $secondary-color;
 
-    .progress-bar-progress {
+		button {
+			border: none;
+			border-radius: 10px;
+
+			font-size: 1.1rem;
+			padding: 0.5rem 1rem;
+			display: flex;
+			align-items: center;
+			margin: auto;
+			margin-top: 0;
+			margin-bottom: 1rem;
+
+			@include brighten-on-hover;
+
+			svg {
+				font-size: 1.5rem;
+				margin-right: 0.5rem;
+			}
+		}
+
+		.delete-all-button {
+			background-color: $danger-color;
+		}
+
+    .complete-all-button {
       background-color: $success-color;
-      height: 1rem;
-      border-radius: 10px;
-      transition: width 1s;
-    }
-  }
-
-  .delete-all-button {
-    border: none;
-    border-radius: 10px;
-    background-color: $danger-color;
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
-    display: flex;
-    align-items: center;
-    margin: auto;
-    margin-top: 0;
-    margin-bottom: 1rem;
-
-    &:hover {
-      filter: brightness(125%);
     }
 
-    svg {
-      font-size: 1.5rem;
-      margin-right: 0.5rem;
+    .incomplete-all-button {
+      background-color: $primary-color;
     }
-  }
+	}
 }

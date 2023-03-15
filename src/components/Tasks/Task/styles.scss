@@ -12,9 +12,17 @@
   border-radius: 15px;
   text-align: left;
 
+  h3 {
+    text-align: left;
+  }
+
   button {
     border: none;
     background-color: $background-color-light;
+  }
+
+  .id-field {
+    text-align: left;
   }
 
   @include status-button;
