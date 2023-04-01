@@ -2,9 +2,9 @@ import Task from './Task';
 import './styles.scss';
 import { HiOutlineTrash } from 'react-icons/hi';
 import {
-  MdOutlineCheckBoxOutlineBlank,
-  MdOutlineCheckBox,
-} from "react-icons/md";
+	MdOutlineCheckBoxOutlineBlank,
+	MdOutlineCheckBox,
+} from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import {
 	deleteAllTasks,
@@ -12,6 +12,7 @@ import {
 	incompleteAllTasks,
 } from '../../redux/taskSlice';
 import { useDispatch } from 'react-redux';
+import * as database from '../../database';
 
 export default function Tasks() {
 	let tasks = useSelector((state) => state.task.tasks);
@@ -29,19 +30,35 @@ export default function Tasks() {
 		return percent;
 	};
 
-	function deleteAll(event) {
+	const deleteAll = async (event) => {
 		event.preventDefault();
 		dispatch(deleteAllTasks());
-	}
 
-	function completeAll(event) {
+		tasks.forEach((task) => {
+			database.remove(task.id);
+		}
+			
+		);
+	};
+
+	const completeAll = async (event) => {
 		event.preventDefault();
 		dispatch(completeAllTasks());
+
+		tasks.forEach((task) => {
+			const data = { completed: true };
+			database.update(task.id, data);
+		})
 	}
 
 	function incompleteAll(event) {
 		event.preventDefault();
 		dispatch(incompleteAllTasks());
+
+		tasks.forEach((task) => {
+			const data = { completed: false };
+			database.update(task.id, data);
+		})
 	}
 
 	return (

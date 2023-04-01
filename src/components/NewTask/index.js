@@ -7,16 +7,18 @@ import {
 import { BiPlusCircle } from 'react-icons/bi';
 import { useDispatch } from 'react-redux';
 import { addTask } from '../../redux/taskSlice';
+import * as database from '../../database';
 
 export default function NewTask() {
 	const [title, setTitle] = useState('');
 	const [completed, setCompleted] = useState(false);
 	const [errorMessages, setErrorMessages] = useState([]);
 	const [showSuccess, setShowSuccess] = useState(false);
+	const [isSaving, setIsSaving] = useState(false);
 
 	let dispatch = useDispatch();
 
-	const handleNewTask = (e) => {
+	const handleNewTask = async (e) => {
 		e.preventDefault();
 		setShowSuccess(false);
 		const validate = [];
@@ -29,23 +31,28 @@ export default function NewTask() {
 
 		if (validate.length === 0) {
 			const data = { title, completed };
-			console.log(data);
-			dispatch(addTask(data));
-			setShowSuccess(true);
+			setIsSaving(true);
+			const savedId = await database.save(data);
+			setIsSaving(false);
+			if (savedId) {
+				data.id = savedId;
 
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 2000)
+				dispatch(addTask(data));
+				setShowSuccess(true);
 
-			// Clean NewTask
-			setTitle('');
-			setCompleted(false);
+				setTimeout(() => {
+					setShowSuccess(false);
+				}, 2000);
+
+				// Clean NewTask
+				setTitle('');
+				setCompleted(false);
+			}
 		}
 	};
 
 	function handleChangeStatus() {
 		completed ? setCompleted(false) : setCompleted(true);
-		console.log(completed);
 	}
 
 	return (
@@ -66,6 +73,13 @@ export default function NewTask() {
 									<li key={i}>{e}</li>
 								))}
 							</ul>
+						</div>
+					)}
+
+					{/* Conditionally display saving */}
+					{isSaving && (
+						<div className='saving'>
+							<strong>Saving, please wait...</strong>
 						</div>
 					)}
 				</div>

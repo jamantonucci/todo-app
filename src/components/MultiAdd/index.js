@@ -7,6 +7,7 @@ import {
 	MdOutlineCheckBoxOutlineBlank,
 	MdOutlineCheckBox,
 } from 'react-icons/md';
+import * as database from '../../database';
 
 export default function MultiAdd() {
 	const [tasksToAdd, setTasksToAdd] = useState('');
@@ -17,7 +18,7 @@ export default function MultiAdd() {
 
 	let dispatch = useDispatch();
 
-	const handleMultiAdd = (event) => {
+	const handleMultiAdd = async (event) => {
 		event.preventDefault();
 		setShowSuccess(false);
 		const validate = [];
@@ -32,12 +33,16 @@ export default function MultiAdd() {
 			const newTasks = tasksToAdd.split(',');
 			setNewTaskCount(newTasks.length);
 
-			newTasks.map((newTask) => {
+			newTasks.map(async (newTask) => {
 				const data = {
 					title: newTask,
 					completed: autoCompleteNew,
 				};
-				return dispatch(addTask(data));
+				const savedId = await database.save(data);
+				if (savedId) {
+					data.id = savedId;
+					dispatch(addTask(data));
+				}
 			});
 
 			setShowSuccess(true);
@@ -83,7 +88,7 @@ export default function MultiAdd() {
 				type='text'
 				onChange={(e) => setTasksToAdd(e.target.value)}
 				value={tasksToAdd}
-				maxLength={50}
+				maxLength={250}
 				placeholder='Enter new tasks here, separated by a comma.'
 			/>
 

@@ -1,28 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import uuid from 'react-uuid';
-
-const initialTasks = [
-	{
-		title: 'Finish JavaScript lab',
-		id: uuid(),
-		complete: false,
-	},
-	{
-		title: 'Create Loom video',
-		id: uuid(),
-		complete: false,
-	},
-	{
-		title: 'Submit to FOL Dropbox',
-		id: uuid(),
-		complete: false,
-	},
-];
 
 export const taskSlice = createSlice({
 	name: 'task',
 	initialState: {
-		tasks: initialTasks,
+		tasks: [],
 	},
 	reducers: {
 		changeStatus: (state, action) => {
@@ -60,15 +41,14 @@ export const taskSlice = createSlice({
 		},
 
     addTask: (state, action) => {
-      const newTask = {
-        id: uuid(),
-        title: action.payload.title,
-        completed: action.payload.completed,
-      }
-      state.tasks.push(newTask);
-    }
+      state.tasks.push(action.payload);
+    },
+
+		setTasks: (state, action) => {
+			state.tasks = action.payload;
+		}
 	},
 });
 
-export const { changeStatus, removeTask, deleteAllTasks, completeAllTasks, incompleteAllTasks, addTask } = taskSlice.actions;
+export const { changeStatus, removeTask, deleteAllTasks, completeAllTasks, incompleteAllTasks, addTask, setTasks } = taskSlice.actions;
 export default taskSlice.reducer;

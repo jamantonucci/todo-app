@@ -6,6 +6,7 @@ import {
 } from "react-icons/md";
 import { useDispatch } from 'react-redux';
 import { changeStatus, removeTask } from "../../../redux/taskSlice";
+import * as database from '../../../database';
 
 export default function Task({
   id,
@@ -14,14 +15,27 @@ export default function Task({
 }) {
   const dispatch = useDispatch();
 
-  function handleRemoveTask(event) {
+  const handleRemoveTask = async (event) => {
     event.preventDefault();
     dispatch(removeTask(id));
+
+    const deleted = await database.remove(id);
+    if (!deleted) {
+      alert('Failed to delete task');
+    }
   }
 
-  function handleChangeStatus(event) {
+  const handleChangeStatus = async (event) => {
     event.preventDefault();
     dispatch(changeStatus(id));
+
+    const data = { completed: !completed };
+    const updated = await database.update(id, data);
+
+    if (!updated) {
+      alert('Failed to update status');
+    }
+
   }
 
   return (
